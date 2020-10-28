@@ -1,18 +1,18 @@
 {
   "flights": [
     {
-      "fromCity": "Москва",
-    "toCity": "Хабаровск",
+      "fromCity": "Moscow",
+    "toCity": "Khabarovsk",
     "price": 2000
     },
     {
-      "fromCity": "Москва",
-      "toCity": "Хабаровск",
+      "fromCity": "Moscow",
+      "toCity": "Khabarovsk",
       "price": 1000
     },
     {
-      "fromCity": "Москва",
-      "toCity": "Хабаровск",
+      "fromCity": "Moscow",
+      "toCity": "Khabarovsk",
       "price": 3000
     }
   ]

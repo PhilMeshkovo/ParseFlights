@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 
 public class main {
 
-  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
     if (args.length == 1) {
 
@@ -24,22 +23,37 @@ public class main {
 
         for (int i = 0; i < flights.size(); i++) {
           JSONObject jsonObject1 = (JSONObject) flights.get(i);
-          jsonObjectList.add(jsonObject1);
+          if (jsonObject1.get("fromCity").equals("Moscow") &&
+              jsonObject1.get("toCity").equals("Khabarovsk")) {
+            jsonObjectList.add(jsonObject1);
+          }
         }
-        long max = jsonObjectList.stream().filter(f -> f.get("fromCity").equals("Moscow") &&
-            f.get("toCity").equals("Khabarovsk")).mapToLong(p -> (long) p.get("price")).max()
-            .orElseThrow();
+        long max = 0;
+        long min = 0;
+        long sum = 0;
+        for (int i = 0; i < jsonObjectList.size(); i++) {
+          if (i == 1) {
+            max = (long) jsonObjectList.get(i).get("price");
+            min = (long) jsonObjectList.get(i).get("price");
+            sum += (long) jsonObjectList.get(i).get("price");
+          } else {
+            sum += (long) jsonObjectList.get(i).get("price");
+            if ((long) jsonObjectList.get(i).get("price") > max) {
+              max = (long) jsonObjectList.get(i).get("price");
+            }
+            if ((long) jsonObjectList.get(i).get("price") < min) {
+              min = (long) jsonObjectList.get(i).get("price");
+            }
+          }
 
-        long min = jsonObjectList.stream().filter(f -> f.get("fromCity").equals("Moscow") &&
-            f.get("toCity").equals("Khabarovsk")).mapToLong(p -> (long) p.get("price")).min()
-            .orElseThrow();
+
+        }
         System.out.println("Максимальная цена " + max);
         System.out.println("Минимальная цена " + min);
-        System.out.println("Средняя цена " + (max + min) / 2);
+        System.out.println("Средняя цена " + sum / jsonObjectList.size());
       } catch (Exception e) {
         e.printStackTrace();
       }
-
     }
   }
 }
